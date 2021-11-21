@@ -3,8 +3,6 @@ import { Author } from 'src/author/models/author.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-export type BookDocument = Book & mongoose.Document;
-
 @Schema()
 @ObjectType()
 export class Book {
@@ -23,5 +21,7 @@ export class Book {
   @Field(() => Author)
   author: Author | string;
 }
+
+export type BookDocument = Book & mongoose.Document;
 
 export const BookSchema = SchemaFactory.createForClass(Book);

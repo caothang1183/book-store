@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { BookModule } from './book/book.module';
     ),
     AuthorModule,
     BookModule,
+    UserModule,
   ],
 })
 export class AppModule {}
