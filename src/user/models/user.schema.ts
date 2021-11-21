@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import * as mongoose from 'mongoose';
 
 @Schema()
@@ -46,12 +46,15 @@ UserSchema.pre('save', async function (next: any) {
   const user = this as UserDocument;
   if (!user.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hashSync(user.password, salt);
+  const hash = bcrypt.hashSync(user.password, salt);
   user.password = hash;
   return next();
 });
 
 UserSchema.methods.comparePassword = async (candidatePassword: string) => {
   const user = this as UserDocument;
-  return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+  return bcrypt.compare(candidatePassword, user.password).catch((e) => {
+    console.log(e.message);
+    return false;
+  });
 };

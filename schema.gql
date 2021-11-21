@@ -15,6 +15,16 @@ type Book {
   author: Author!
 }
 
+type User {
+  _id: ID!
+  username: String!
+  email: String!
+  fullname: String!
+  password: String!
+  confirmToken: String!
+  active: Boolean!
+}
+
 type Query {
   authors: [Author]!
   author(id: String!): Author
@@ -25,6 +35,8 @@ type Query {
 type Mutation {
   createAuthor(input: CreateAuthorInput!): Author!
   createBook(input: CreateBookInput!): Book!
+  registerUser(input: CreateUserInput!): User!
+  confirmUser(input: ConfirmUserInput!): User!
 }
 
 input CreateAuthorInput {
@@ -35,4 +47,16 @@ input CreateBookInput {
   title: String!
   isPopulate: Boolean!
   author: String!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  fullname: String!
+  password: String!
+}
+
+input ConfirmUserInput {
+  email: String!
+  confirmToken: String!
 }
