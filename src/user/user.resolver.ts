@@ -1,6 +1,8 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver, Query } from '@nestjs/graphql';
+import Ctx from 'src/types/context.type';
 import { ConfirmUserInput } from './dto/inputs/confirm-user.input';
 import { CreateUserInput } from './dto/inputs/create-user.input';
+import { LoginUserInput } from './dto/inputs/login-user.input';
 import { User } from './models/user.schema';
 import { UserService } from './user.service';
 
@@ -16,5 +18,15 @@ export class UserResolver {
   @Mutation(() => User)
   async confirmUser(@Args('input') input: ConfirmUserInput) {
     return await this.userService.confirmUser(input);
+  }
+
+  @Mutation(() => User)
+  async login(@Args('input') input: LoginUserInput, @Context() context: Ctx) {
+    return await this.userService.login(input, context);
+  }
+
+  @Query(() => User, { nullable: true })
+  async me(@Context() context: Ctx) {
+    return context.req.user;
   }
 }

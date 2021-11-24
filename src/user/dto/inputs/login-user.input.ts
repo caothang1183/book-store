@@ -6,5 +6,5 @@ export class LoginUserInput {
   username: string;
 
   @Field()
-  fullname: string;
+  password: string;
 }

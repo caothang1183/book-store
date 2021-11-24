@@ -30,6 +30,7 @@ type Query {
   author(id: String!): Author
   books: [Book]!
   book(id: String!): Book
+  me: User
 }
 
 type Mutation {
@@ -37,6 +38,7 @@ type Mutation {
   createBook(input: CreateBookInput!): Book!
   registerUser(input: CreateUserInput!): User!
   confirmUser(input: ConfirmUserInput!): User!
+  login(input: LoginUserInput!): User!
 }
 
 input CreateAuthorInput {
@@ -59,4 +61,9 @@ input CreateUserInput {
 input ConfirmUserInput {
   email: String!
   confirmToken: String!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
 }

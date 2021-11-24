@@ -29,7 +29,7 @@ export class User {
   @Field()
   confirmToken: string;
 
-  @Prop({ required: true, default: true })
+  @Prop({ required: true, default: false })
   @Field()
   active: boolean;
 
@@ -51,7 +51,9 @@ UserSchema.pre('save', async function (next: any) {
   return next();
 });
 
-UserSchema.methods.comparePassword = async (candidatePassword: string) => {
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+) {
   const user = this as UserDocument;
   return bcrypt.compare(candidatePassword, user.password).catch((e) => {
     console.log(e.message);
